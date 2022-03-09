@@ -95,6 +95,8 @@ class Game {
         this.setBet();
     }
     reset() {
+        let bet = parseInt(prompt("For how much do you want to bet?"));
+        this.bettingFor = bet;
         document.querySelector(".result").innerHTML = "";
         this.setBet();
         this.enableButtons();
@@ -214,7 +216,8 @@ class Player {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    var game = new Game(10);
+    let bet = parseInt(prompt("For how much do you want to bet?"));
+    var game = new Game(bet);
 
     document.querySelector("#hit").addEventListener("click", () => game.hit());
     document.querySelector("#stand").addEventListener("click", () => game.stand());
