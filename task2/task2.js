@@ -1,3 +1,15 @@
+class Card {
+    constructor(suit, value) {
+        this.suit = suit;
+        this.value = value;
+        this.shown = true;
+    }
+    getNumericValue(aceValue) {
+        const faceOrAce = this.value === "ace" ? aceValue : 10;
+        return Number.isInteger(this.value) ? this.value : faceOrAce;
+    }
+}
+
 class Deck {
     constructor() {
         this.cards = [];
@@ -9,18 +21,6 @@ class Deck {
         let dealtCard = this.cards.pop();
         shown ? "" : dealtCard.shown = false;
         return dealtCard;
-    }
-}
-
-class Card {
-    constructor(suit, value) {
-        this.suit = suit;
-        this.value = value;
-        this.shown = true;
-    }
-    getNumericValue(aceValue) {
-        const faceOrAce = this.value === "ace" ? aceValue : 10;
-        return Number.isInteger(this.value) ? this.value : faceOrAce;
     }
 }
 
@@ -81,15 +81,14 @@ dealFirstCards();
 
 function dealFirstCards() {
     deck.shuffle();
-    player.getCard(deck.deal());
-    dealer.getCard(deck.deal());
-    player.getCard(deck.deal());
-    dealer.getCard(deck.deal(shown=false));
+    // player.getCard(deck.deal());
+    // dealer.getCard(deck.deal());
+    // player.getCard(deck.deal());
+    // dealer.getCard(deck.deal(shown=false));
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    initCardsOnTable();
-    initScores();
+    // initCardsOnTable();
     startGame();
 })
 
@@ -116,17 +115,24 @@ function initScores() {
 }
 
 function startGame() {
-    let turn = player.turn ? player : dealer;
-    document.querySelector(".turn").innerText = `It's ${turn.name}'s turn`;
-    if (player.turn) {
-        hitOrStand();
-    } else {
-        if (dealer.score < 17) {
-            dealer.getCard(deck.deal());
-            addCardToTable("dealer");
-        } else {
-            checkWinner();
-        }
+    noWinnerYet = true
+    initScores();
+    
+
+    while (noWinnerYet) {
+        let turn = player.turn ? player : dealer;
+            document.querySelector(".turn").innerText = `It's ${turn.name}'s turn`;
+            if (player.turn) {
+                hitOrStand();
+            } else {
+                if (dealer.score < 17) {
+                    dealer.getCard(deck.deal());
+                    addCardToTable("dealer");
+                } else {
+                    checkWinner();
+                }
+            }
+        noWinnerYet = false;
     }
 }
 
@@ -176,6 +182,7 @@ function disableButtons() {
     var buttons = document.querySelector(".decision-buttons").children;
     for (button of buttons) {
         button.classList.add("disabled");
+        button.disabled = true;
     }
 }
 // based on current cards on the table, the player either clicks on "hit" or "stand" button
