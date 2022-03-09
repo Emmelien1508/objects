@@ -1,10 +1,3 @@
-var suits = [];
-suits["diamond"] = "&diams;";
-suits["heart"] = "&hearts;";
-suits["spade"] = "&spades;";
-suits["club"] = "&clubs;";
-var values = [2, 3, 4, 5, 6, 7, 8, 9, 10, "jack", "queen", "king", "ace"]
-
 class Card {
     constructor(suit, value) {
         this.suit = suit;
@@ -20,6 +13,12 @@ class Card {
 class Deck {
     constructor() {
         this.cards = [];
+        var suits = [];
+        suits["diamond"] = "&diams;";
+        suits["heart"] = "&hearts;";
+        suits["spade"] = "&spades;";
+        suits["club"] = "&clubs;";
+        var values = [2, 3, 4, 5, 6, 7, 8, 9, 10, "jack", "queen", "king", "ace"]
         values.forEach((value) => {
             for (suit in suits) {
                 deck.cards.push(new Card(suit, value));
