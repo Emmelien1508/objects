@@ -7,10 +7,11 @@ var suits = {
 var values = [2, 3, 4, 5, 6, 7, 8, 9, 10, "jack", "queen", "king", "ace"]
 
 class Game {
-    constructor() {
+    constructor(bettingFor) {
         this.deck = new Deck();
         this.player = new Player("player", true);
         this.dealer = new Player("dealer", false);
+        this.bettingFor = bettingFor;
         this.deck.createNewDeck();
         this.deck.shuffle();
         this.firstDeal();
@@ -18,6 +19,7 @@ class Game {
         this.showInitialScores();
     }
     showCardsOnTable(reset=true) {
+        this.setBet();
         let tables = document.querySelectorAll(".table");
         tables.forEach((table) => {
             if (reset) {
@@ -73,6 +75,8 @@ class Game {
             this.dealer.revealHiddenCard();
             document.querySelector(".dealer-score").innerText = this.dealer.calculateScore();
             document.querySelector(".result").innerHTML = "You lose :(";
+            this.player.wallet -= this.bettingFor;
+            this.setBet();
         } else {
             this.dealCardToDealer();
         }
@@ -83,9 +87,16 @@ class Game {
         document.querySelector(".dealer-score").innerText = this.dealer.calculateScore();
         let winner = this.whoWins();
         document.querySelector(".result").innerHTML = winner;
+        if (winner == "You win! :)") {
+            this.player.wallet += this.bettingFor;
+        } else if (winner == "Dealer wins :(") {
+            this.player.wallet -= this.bettingFor;
+        } 
+        this.setBet();
     }
     reset() {
         document.querySelector(".result").innerHTML = "";
+        this.setBet();
         this.enableButtons();
         this.player.cards = [];
         this.dealer.cards = [];
@@ -127,6 +138,10 @@ class Game {
         document.querySelector("#stand").classList.remove("disabled");
         document.querySelector("#hit").removeAttribute("disabled");
         document.querySelector("#stand").removeAttribute("disabled");
+    }
+    setBet() {
+        document.querySelector(".bet").innerText = this.bettingFor;
+        document.querySelector(".total").innerText = this.player.wallet;
     }
 }
 
@@ -177,6 +192,7 @@ class Player {
         this.name = name;
         this.cards = [];
         this.isTurn = turn;
+        this.wallet = 100;
     }
     getCard(card) {
         this.cards.push(card);
@@ -198,7 +214,7 @@ class Player {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    var game = new Game();
+    var game = new Game(10);
 
     document.querySelector("#hit").addEventListener("click", () => game.hit());
     document.querySelector("#stand").addEventListener("click", () => game.stand());

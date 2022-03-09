@@ -110,6 +110,11 @@ button.disabled:hover {
     margin: 10px;
 }
 
+.info {
+    width: 15vw;
+    padding: 0 20px;
+}
+
 /* flex */
 .flex {
     display: flex;
