@@ -96,7 +96,7 @@ class Game {
     }
     reset() {
         let bet = parseInt(prompt("For how much do you want to bet?"));
-        this.bettingFor = bet;
+        this.bettingFor = bet;30
         document.querySelector(".result").innerHTML = "";
         this.setBet();
         this.enableButtons();
