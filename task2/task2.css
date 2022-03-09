@@ -6,7 +6,6 @@
     --accent2: #FFCF75;
     --gray: #a9a9a9;
     --font-family: 'Poppins', sans-serif;
-    /* --font-family: sans-serif; */
     --font-normal: 400;
     --font-bold: 700;
     --border-radius: 4px;
@@ -17,6 +16,8 @@
     box-sizing: border-box;
     padding: 0;
     margin: 0;
+    font-family: var(--font-family);
+    font-weight: var(--font-normal);
 }
 
 .wrapper {
@@ -58,10 +59,6 @@ button.disabled,
 button.disabled:hover {
     cursor: default;
     background-color: var(--gray);
-}
-
-.space-around {
-    margin: 10px;
 }
 
 /* element-specific styling */
