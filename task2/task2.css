@@ -106,6 +106,10 @@ button.disabled:hover {
     background-color: #000;
 }
 
+.space-around {
+    margin: 10px;
+}
+
 /* flex */
 .flex {
     display: flex;
