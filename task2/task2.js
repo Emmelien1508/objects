@@ -118,52 +118,58 @@ function initScores() {
 function startGame() {
     let turn = player.turn ? player : dealer;
     document.querySelector(".turn").innerText = `It's ${turn.name}'s turn`;
-
-    while (gameNotWon()) {
-        playGame();
-    }
-}
-
-function gameNotWon() {
-    return player.score > 21 ? false : true;
-}
-
-function playGame() {
     if (player.turn) {
-        var buttons = document.querySelector(".decision-buttons").children;
-        Array.from(buttons).forEach(function (button) {
-            button.addEventListener("click", () => {
-                let hit = button.innerText == "Hit" ? true : false;
-                if (hit) {
-                    console.log("do something here");
-                    player.getCard(deck.deal());
-                    addCardToTable();
-                    updateTableScore();
-                    if (gameNotWon()) {
-                        player.turn = false;
-                    } 
-                    disableButtons();
-                } else {
-                    playerClickedOnStand = true;
-                }
-            })
-        });
+        hitOrStand();
     } else {
-        disableButtons();
+        if (dealer.score < 17) {
+            dealer.getCard(deck.deal());
+            addCardToTable("dealer");
+        } else {
+            checkWinner();
+        }
     }
 }
 
-function addCardToTable() {
-    let playerTable = document.querySelector(".player-cards");
-    let card = player.cards[player.cards.length - 1];
-    playerTable.innerHTML += `<div class="card flex col align-center justify-center">${card.value} ${suits[card.suit]}</div>`;
+function hitOrStand() {
+    document.querySelector("#hit").addEventListener("click", () => {
+        // do something here
+        player.getCard(deck.deal());
+        addCardToTable("player");
+        updateTableScore("player");
+        disableButtons();
+    })
+    
+    document.querySelector("#stand").addEventListener("click", () => {
+        // game ends
+        disableButtons();
+        checkWinner();
+    })
+    player.turn = false;
 }
 
-function updateTableScore() {
-    let card = player.cards[player.cards.length - 1];
-    player.updateScore(card);
+function checkWinner() {
+    let result;
+    if (player.score <= 21 && dealer.score <= 21) {
+        const notSameScore = player.score > dealer.score ? "Player won!" : "Dealer won!";
+        result = player.score == dealer.score ? "It's a tie!" : notSameScore;
+    } 
+    result = "There is no winner :(";
+    document.querySelector(".result").innerText = result;
+}
+
+function addCardToTable(whoseTurn) {
+    let turn = player.name === whoseTurn ? player : dealer
+    let table = document.querySelector(`.${whoseTurn}-cards`);
+    let card = turn.cards[turn.cards.length - 1];
+    table.innerHTML += `<div class="card flex col align-center justify-center">${card.value} ${suits[card.suit]}</div>`;
+}
+
+function updateTableScore(whoseTurn) {
+    let turn = player.name === whoseTurn ? player : dealer
+    let card = turn.cards[turn.cards.length - 1];
+    turn.updateScore(card);
     let score = document.querySelector(".player-score");
-    score.innerText = player.score;
+    score.innerText = turn.score;
 }
 
 function disableButtons() {
@@ -175,35 +181,3 @@ function disableButtons() {
 // based on current cards on the table, the player either clicks on "hit" or "stand" button
     // if "hit" button is clicked, add another card to players deck
     // else if "stand" button is clicked, dealer reveals hidden card and winner is decided
-// decisionButtons = document.querySelectorAll(".decision-buttons");
-// decisionButtons.forEach((button) => {
-//     button.addEventListener("click", () => {
-//         if (button.dataset.decision == "hit") {
-//             dealtCard = deck.deal();
-//             player.getCard(dealtCard);
-//             if (dealtCard.value === "ace") {
-//                 // prompt user to get ace value either 1 or 11
-//                 var aceValue = prompt("Do you want this ace to have value 1 or 11?")
-//             }
-//             player.updateScore(dealtCard, aceValue);
-
-//             // dealer get another card
-//             dealer.getCard(deck.deal());
-//         } else {
-//             // dealer shows cards
-//             dealer.cards.forEach((card) => {
-//                 card.shown = true;
-//             })
-//         }
-//     })
-// })
-
-// function decideWinner() {
-//     if (player.score === dealer.score) {
-//         return "It's a tie";
-//     } else if (player.score > dealer.score) {
-//         return "Player wins";
-//     } else {
-//         return "Dealer wins";
-//     }
-// }

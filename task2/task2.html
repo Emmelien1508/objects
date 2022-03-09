@@ -15,6 +15,7 @@
     <div class="wrapper flex col align-center">
         <h1 class="white-text">Welcome to Blackjack!</h1>
         <h3 class="white-text turn"></h3>
+        <h3 class="result"></h3>
         <div class="game flex col">
             <div class="dealer flex col align-center">
                 <h2>Dealer</h2>
@@ -25,8 +26,8 @@
                 <h2>Player</h2>
                 <h3>Score: <span class="player-score score" data-player="true">0</span></h3>
                 <div class="decision-buttons flex row justify-between">
-                    <button>Hit</button>
-                    <button>Stand</button>
+                    <button id="hit">Hit</button>
+                    <button id="stand">Stand</button>
                 </div>
                 <div class="player-cards table flex row justify-center" data-player="true"></div>
             </div>
