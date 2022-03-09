@@ -1,0 +1,130 @@
+:root {
+    --black: #292929;
+    --white: #FFFEFE;
+    --accent1: #FFB429;
+    --accent1-darker: #F2A30F;
+    --accent2: #FFCF75;
+    --gray: #a9a9a9;
+    --font-family: 'Poppins', sans-serif;
+    --font-normal: 400;
+    --font-bold: 700;
+    --border-radius: 4px;
+}
+
+/* general */
+*, *::before, *::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.wrapper {
+    min-height: 100vh;
+    background-color: var(--black);
+    padding: 2vh 2vw;
+}
+
+.white-text {
+    color: var(--white);
+}
+
+button {
+    padding: 10px 30px;
+    background-color: var(--accent1);
+    transition: all 0.5s ease-in-out;
+    font: var(--font-family);
+    font-weight: var(--font-bold);
+    letter-spacing: -1px;
+    border: none;
+    border-radius: var(--border-radius);
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: var(--accent1-darker);
+}
+
+button:focus {
+    outline: none;
+}
+
+.secret {
+    background-color: var(--black);
+}
+
+button.disabled,
+button.disabled:hover {
+    cursor: default;
+    background-color: var(--gray);
+}
+
+/* element-specific styling */
+.dealer, .player {
+    min-height: 40vh;
+    border-radius: var(--border-radius);
+    min-width: 60vw;
+    padding: 2vh 2vw;
+    margin: 1vh 0;
+}
+
+.dealer {
+    background-color: var(--accent1);
+}
+
+.player {
+    background-color: var(--accent2);
+}
+
+.decision-buttons {
+    padding-top: 10px;
+    width: 20%;
+}
+
+.decision-buttons > * {
+    width: 45%;
+}
+
+.player-cards {
+    padding: 2vh 2vw;
+}
+
+.card {
+    width: 100px;
+    height: 150px;
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    margin: 0 10px;
+}
+
+.secret {
+    background-color: var(--black);
+}
+
+/* flex */
+.flex {
+    display: flex;
+}
+
+.row {
+    flex-direction: row;
+}
+
+.col {
+    flex-direction: column;
+}
+
+.justify-around {
+    justify-content: space-around;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.align-center {
+    align-items: center;
+}
