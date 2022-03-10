@@ -20,9 +20,16 @@
             <button id="reset">Reset</button>
         </div>
         <div class="game flex row justify-center">
-            <div class="info">
-                <h2 class="white-text">Game rules:</h2>
-
+            <div class="info white-text">
+                <h2>Game rules:</h2>
+                <ul class="tiny">
+                    <li>The game starts with four cards dealt: 2 to the player and 2 to the dealer</li>
+                    <li>The dealer has one card facing down. This will only be visible once the game is over.</li>
+                    <li>Each face card has a definite value of 10. For simplicity, the ace card has a value of 1. The value of the rest of the cards is defined by their number</li>
+                    <li>Given your cards and the dealer's cards, decide whether you want to stand or hit.</li>
+                    <li>The values for all the cards dealt are added and if the sum exceeds 21, the player busts and loses instantly.</li>
+                    <li>If you get an exact 21, and the dealer doesn't have 21, you win. Otherwise, in order to win, the sum of your cards must be more than the sum of the dealer's cards.</li>
+                </ul>
             </div>
             <div class="flex col">
                 <div class="dealer flex col align-center">
@@ -42,10 +49,10 @@
             </div>
             <div class="info white-text">
                 <h2>Betting for:</h2>
-                <h3 class="bet-div">$<span class="bet"></span></h3>
+                <h3 class="bet-div">$<span class="bet">?</span></h3>
                 <br>
                 <h2>Your wallet:</h2>
-                <h3 class="total-div">$<span class="total"></span></h3>
+                <h3 class="total-div">$<span class="total">100</span></h3>
             </div>
         </div>
     </div>

@@ -82,6 +82,9 @@ class Game {
         }
     }
     stand() {
+        while (this.dealer.calculateScore() < 17) {
+            this.dealCardToDealer();
+        }
         this.disableButtons();
         this.dealer.revealHiddenCard();
         document.querySelector(".dealer-score").innerText = this.dealer.calculateScore();
@@ -95,8 +98,12 @@ class Game {
         this.setBet();
     }
     reset() {
-        let bet = parseInt(prompt("For how much do you want to bet?"));
-        this.bettingFor = bet;30
+        document.querySelector(".bet").innerText = "?";
+        let wallet = document.querySelector(".total").innerText;
+        this.bettingFor = -50;
+        while (this.bettingFor < 0 || this.bettingFor > wallet) {
+            this.bettingFor = parseInt(prompt(`For how much do you want to bet? You only have $${wallet} in your wallet`));
+        }
         document.querySelector(".result").innerHTML = "";
         this.setBet();
         this.enableButtons();
@@ -216,7 +223,10 @@ class Player {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    let bet = parseInt(prompt("For how much do you want to bet?"));
+    let bet = -10;
+    while (bet < 0 || bet > 100) {
+        bet = parseInt(prompt("For how much do you want to bet? You only have $100 in your wallet"));
+    }
     var game = new Game(bet);
 
     document.querySelector("#hit").addEventListener("click", () => game.hit());

@@ -115,6 +115,10 @@ button.disabled:hover {
     padding: 0 20px;
 }
 
+.tiny {
+    font-size: 0.8rem;
+}
+
 /* flex */
 .flex {
     display: flex;
